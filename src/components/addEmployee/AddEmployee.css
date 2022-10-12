@@ -1,0 +1,12 @@
+.total-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 30vw;
+}
+button {
+  cursor: pointer;
+}
+.space {
+  margin-right: 2rem;
+}

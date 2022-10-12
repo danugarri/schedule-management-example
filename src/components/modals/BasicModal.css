@@ -1,0 +1,11 @@
+.close-button {
+  background-color: red;
+  position: absolute;
+  cursor: pointer;
+  right: 1rem;
+  top: 1rem;
+}
+.confirmation {
+  font-size: 40px;
+  font-weight: bold;
+}

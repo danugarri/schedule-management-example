@@ -1,0 +1,14 @@
+.employeeTable {
+  margin: 1rem;
+  font-size: 0.625rem;
+}
+.employeeThead {
+  font-weight: 900;
+  background-color: rgb(176, 213, 214);
+}
+.employeeTBodyTd {
+  text-align: center;
+}
+.tdPadding {
+  padding: 0.625rem;
+}

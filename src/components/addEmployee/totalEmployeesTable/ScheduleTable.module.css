@@ -1,0 +1,87 @@
+.scheduleTable {
+  margin: 2rem auto;
+  font-size: 1.25rem;
+}
+
+.scheduleThead {
+  font-weight: 900;
+  background-color: rgb(70, 227, 233);
+}
+.scheduleTBodyTd {
+  text-align: center;
+}
+.tdPadding {
+  padding: 0.625rem;
+}
+.deleteButton {
+  background-color: red;
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 3rem;
+}
+.results {
+  background-color: darkgray;
+}
+.tfooter {
+  border-top: 3px dotted black;
+  background-color: black;
+  height: 1px;
+  width: 65vw;
+  position: absolute;
+}
+.idColumn {
+  background-color: white;
+}
+.totalHoursHeader {
+  background-color: rgb(143, 236, 114);
+}
+.totalHours {
+  border-bottom: 2px solid black;
+  text-align: center;
+  background-color: rgb(235, 232, 232);
+}
+.leftHoursHeader {
+  background-color: rgb(236, 166, 108);
+}
+.leftHoursTdIncompleted {
+  color: red;
+  text-align: center;
+  font-weight: 700;
+  border-bottom: 2px solid black;
+  background-color: rgb(243, 192, 192);
+}
+.leftHoursTdcompleted {
+  color: rgb(33, 170, 33);
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 2px solid black;
+  background-color: rgb(176, 226, 182);
+}
+
+@media only screen and (max-width: 900px) {
+  .scheduleTable {
+    margin: 8rem auto;
+    font-size: 1em;
+    padding: 3rem;
+  }
+
+  .scheduleThead {
+    font-weight: 900;
+    background-color: rgb(70, 227, 233);
+  }
+  .scheduleTBodyTd {
+    text-align: center;
+  }
+  .tdPadding {
+    padding: 0.225rem;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .scheduleTable {
+    margin: 1rem auto;
+    font-size: 3em;
+    padding: 2rem;
+  }
+}
