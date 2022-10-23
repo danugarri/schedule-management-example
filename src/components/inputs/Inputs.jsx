@@ -6,6 +6,7 @@ import { isCorrectNumberOfFreeDays } from '../../helpers/getWorkingDays';
 import './Inputs.css';
 import { useControlFinalFreeDays } from '../../hooks/useControlFinalFreeDays';
 import { checkMaxHoursAccordingToFreeDays } from '../../helpers/checkMaxHoursAccordingToFreeDays';
+import { useMaxFourtyHours } from '../../hooks/useMaxFourtyHours';
 
 export const Inputs = ({
   setSchedule,
@@ -31,6 +32,7 @@ export const Inputs = ({
   setIsLoading,
   openMaxHoursAccordingToFreeDays,
   setOpenMaxHoursAccordingToFreeDays,
+  setOpenMaxFourtyHoursModal,
 }) => {
   const mondayRef = useRef();
   const tuesdayRef = useRef();
@@ -65,6 +67,7 @@ export const Inputs = ({
     workingHoursPerDay,
     localWorkingHours,
   );
+  const isMaxFourtyHours = useMaxFourtyHours(setOpenMaxFourtyHoursModal);
   const submitEmployeeSchedule = (e) => {
     e.preventDefault();
 
@@ -76,12 +79,14 @@ export const Inputs = ({
     const isCorrectedLeftHours = leftWorkingHours < ordinaryEmployeeHours;
     // check final
     const checkedFinalFreeDays = controlFinalFreeDays();
-
+    //  Check max 40h
+    const isMax = isMaxFourtyHours(ordinaryEmployeeHours);
     if (
       ordinaryEmployeeHours !== 0 &&
       ordinaryEmployeeHours >= 10 &&
       correctFreedays &&
-      !isInCorrectedMaxHours
+      !isInCorrectedMaxHours &&
+      !isMax
     ) {
       if (
         leftWorkingHours >= ordinaryEmployeeHours &&
@@ -100,7 +105,7 @@ export const Inputs = ({
         });
       }
     }
-    if (isCorrectedLeftHours) {
+    if (isCorrectedLeftHours && !isMax) {
       setOpenLeftHoursModal(true);
     }
     if (ordinaryEmployeeHours === 0 || ordinaryEmployeeHours < 10) {

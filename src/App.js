@@ -18,6 +18,7 @@ import { getTotalSumation } from './helpers/getTotalSumation';
 import { useGetAllTotalHours } from './hooks/useGetAllTotalHours';
 import { checkMaxHoursAccordingToFreeDays } from './helpers/checkMaxHoursAccordingToFreeDays';
 import MaxHoursAccordingToFreeDaysModal from './components/modals/maxHoursModal/MaxHoursModal';
+import MaxFourtyHoursModal from './components/modals/maxFourtyHoursModal/MaxFourtyHoursModal';
 
 function App() {
   const [schedule, setSchedule] = useState({});
@@ -61,6 +62,7 @@ function App() {
   const [openSameIdModal, setOpenSameIdModal] = useState(false);
   const [openControlFinalFreeDays, setOpenControlFinalFreeDays] = useState(false);
   const [openMaxHoursAccordingToFreeDays, setOpenMaxHoursAccordingToFreeDays] = useState(false);
+  const [openMaxFourtyHoursModal, setOpenMaxFourtyHoursModal] = useState(false);
   // Loader
   const [isLoading, setIsLoading] = useState(false);
   return (
@@ -91,6 +93,7 @@ function App() {
         setIsLoading={setIsLoading}
         openMaxHoursAccordingToFreeDays={openMaxHoursAccordingToFreeDays}
         setOpenMaxHoursAccordingToFreeDays={setOpenMaxHoursAccordingToFreeDays}
+        setOpenMaxFourtyHoursModal={setOpenMaxFourtyHoursModal}
       />
       {!isLoading ? <EmployeeSchedule schedule={schedule} /> : <Spinner />}
       <BasicModal open={open} setOpen={setOpen} />
@@ -120,6 +123,10 @@ function App() {
         openMaxHoursAccordingToFreeDays={openMaxHoursAccordingToFreeDays}
         setOpenMaxHoursAccordingToFreeDays={setOpenMaxHoursAccordingToFreeDays}
         maxHoursToDo={maxHoursToDo}
+      />
+      <MaxFourtyHoursModal
+        openMaxFourtyHoursModal={openMaxFourtyHoursModal}
+        setOpenMaxFourtyHoursModal={setOpenMaxFourtyHoursModal}
       />
       <AddEmployee
         schedule={schedule}
