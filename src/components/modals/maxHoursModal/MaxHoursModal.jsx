@@ -2,7 +2,6 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import './BasicModal.css';
 
 const style = {
   position: 'absolute',
@@ -16,28 +15,32 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal({ setOpen, open }) {
-  const handleClose = () => setOpen(false);
+export default function MaxHoursModal({
+  openMaxHoursAccordingToFreeDays,
+  setOpenMaxHoursAccordingToFreeDays,
+  maxHoursToDo,
+}) {
+  const handleClose = () => setOpenMaxHoursAccordingToFreeDays(false);
 
   return (
     <div>
       <Modal
-        open={open}
+        open={openMaxHoursAccordingToFreeDays}
         onClose={handleClose}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
         onKeyPress={(e) => {
           if (e.key === 'Enter') {
-            setOpen(false);
+            setOpenMaxHoursAccordingToFreeDays(false);
           }
         }}
       >
         <Box sx={style}>
           <Typography id='modal-modal-title' variant='h6' component='h2'>
-            <p className='conclusion'>
-              Las horas ordinarias del trabajador deben ser como mínimo 10
-            </p>
-            <p>Puede que hayas olvidado introducir un número de horas</p>
+            <>
+              <p className='conclusion'>Modifica los DÍAS LIBRES</p>
+              <p>{`El máximo de horas que se pueden hacer de acuerdo con los días libres seleccionados es: ${maxHoursToDo}`}</p>
+            </>
             <button onClick={handleClose} className='close-button '>
               X
             </button>

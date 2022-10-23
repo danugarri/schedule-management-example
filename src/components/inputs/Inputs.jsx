@@ -5,6 +5,7 @@ import { removeItemFromArr } from '../../helpers/removeDays';
 import { isCorrectNumberOfFreeDays } from '../../helpers/getWorkingDays';
 import './Inputs.css';
 import { useControlFinalFreeDays } from '../../hooks/useControlFinalFreeDays';
+import { checkMaxHoursAccordingToFreeDays } from '../../helpers/checkMaxHoursAccordingToFreeDays';
 
 export const Inputs = ({
   setSchedule,
@@ -28,6 +29,8 @@ export const Inputs = ({
   setOpenControlFinalFreeDays,
   localWorkingHours,
   setIsLoading,
+  openMaxHoursAccordingToFreeDays,
+  setOpenMaxHoursAccordingToFreeDays,
 }) => {
   const mondayRef = useRef();
   const tuesdayRef = useRef();
@@ -64,14 +67,28 @@ export const Inputs = ({
   );
   const submitEmployeeSchedule = (e) => {
     e.preventDefault();
-    setIsLoading(true);
 
     // Checking if it is possible have the entered number of freedays
     const correctFreedays = isCorrectNumberOfFreeDays(freeDays, ordinaryEmployeeHours);
-    if (ordinaryEmployeeHours !== 0 && ordinaryEmployeeHours >= 10 && correctFreedays) {
-      // check final
-      const checkedFinalFreeDays = controlFinalFreeDays();
-      if (leftWorkingHours >= ordinaryEmployeeHours && checkedFinalFreeDays) {
+    const maxHoursToDo = checkMaxHoursAccordingToFreeDays(allDays, workingHoursPerDay, freeDays);
+    const isInCorrectedMaxHours =
+      freeDays.length > 0 && maxHoursToDo < Number(ordinaryEmployeeHours);
+    const isCorrectedLeftHours = leftWorkingHours < ordinaryEmployeeHours;
+    // check final
+    const checkedFinalFreeDays = controlFinalFreeDays();
+
+    if (
+      ordinaryEmployeeHours !== 0 &&
+      ordinaryEmployeeHours >= 10 &&
+      correctFreedays &&
+      !isInCorrectedMaxHours
+    ) {
+      if (
+        leftWorkingHours >= ordinaryEmployeeHours &&
+        !openMaxHoursAccordingToFreeDays &&
+        checkedFinalFreeDays
+      ) {
+        setIsLoading(true);
         const getSchedule = async () => {
           const response = await scheduleManagement(1, employeeName);
           return response;
@@ -81,15 +98,19 @@ export const Inputs = ({
           setIsLoading(false);
           employeeConfirmation();
         });
-      } else if (leftWorkingHours < ordinaryEmployeeHours && checkedFinalFreeDays) {
-        setOpenLeftHoursModal(true);
       }
+    }
+    if (isCorrectedLeftHours) {
+      setOpenLeftHoursModal(true);
     }
     if (ordinaryEmployeeHours === 0 || ordinaryEmployeeHours < 10) {
       setOpen(!open);
     }
-    if (!correctFreedays) {
-      setOpenFreeDaysModal(!openFreeDaysModal);
+    // if (!correctFreedays) {
+    //   setOpenFreeDaysModal(!openFreeDaysModal);
+    // }
+    if (isInCorrectedMaxHours && !isCorrectedLeftHours) {
+      setOpenMaxHoursAccordingToFreeDays(true);
     }
   };
   const clearSearch = () => {
