@@ -40,10 +40,14 @@ function App() {
     setTotalEmployees([]);
   };
   const add = () => {
+    console.log(totalEmployees);
     const totalHoursPerEmployee = getTotalHoursPerEmployee(schedule);
+    schedule.totalHours = totalHoursPerEmployee;
     const newSchedule = { ...schedule };
     newSchedule.totalHours = totalHoursPerEmployee;
-    const notCalculatedNewSchedule = totalEmployees.find((employee) => employee.id === schedule.id);
+    const notCalculatedNewSchedule = totalEmployees.find(
+      (employee) => employee.Employee === schedule.Employee,
+    );
     if (!notCalculatedNewSchedule) {
       setTotalEmployees((prev) => prev.concat(newSchedule));
     } else {

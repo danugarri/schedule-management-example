@@ -14,7 +14,11 @@ export const AddEmployee = ({
   emptyTable,
 }) => {
   const deleteEmployee = (typedEmployee) => {
-    const newTotal = totalEmployees.filter((employee) => employee.id !== typedEmployee.id);
+    console.log('............');
+    console.log(typedEmployee);
+    const newTotal = totalEmployees.filter(
+      (employee) => employee.Employee !== typedEmployee.Employee,
+    );
     setTotalEmployees(newTotal);
   };
 
